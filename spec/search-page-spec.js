@@ -5,10 +5,12 @@ describe('search page', function () {
         var searchPage, search, fixture;
         fixture = setFixtures('<input value="mel" ' +
         'id="locationInput"/>');
-        search = jasmine.createSpy('search');
 
         searchPage = new SearchPage();
-        searchPage.searchButtonHandler(search);
+        searchPage.searcher = jasmine.createSpy('searcher');
+        search = jasmine.createSpy('search');
+        searchPage.searcher.search = search;
+        searchPage.searchButtonHandler();
 
         expect(searchPage.searchValue).toBe('mel');
         expect(search).toHaveBeenCalled();

@@ -1,5 +1,5 @@
 function LocationSearch() {
-    this.search = function(location,success) {
+    LocationSearch.prototype.search = function(location,success) {
         var query = "";
         if (location) {
             query = "?name=" + location;
@@ -10,8 +10,6 @@ function LocationSearch() {
             dataType: 'json'
         });
     };
-
-
 }
 
 

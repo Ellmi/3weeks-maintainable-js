@@ -1,9 +1,12 @@
 function SearchPage() {
-    this.searchButtonHandler = function(search) {
-        this.searchValue = $("#locationInput").val();
-        search(this.searchValue);
+    var that = this;
+    this.searcher =new LocationSearch();
+    this.searchButtonHandler = function() {
+        that.searchValue = $("#locationInput").val();
+        that.searcher.search(that.searchValue,that.renderView);
     };
     this.renderView=function(data){
+        $("#results").empty();
         if(data.length === 0){return;}
         $.each(data,function(i,location){
             $("#results").append('<div class=' +
@@ -12,7 +15,7 @@ function SearchPage() {
             '</h6><a href="#" class="like button tiny right">Like</a>'+
             '</div>')})
     };
-
+    $('#searchButton').click(this.searchButtonHandler);
 }
 
 
