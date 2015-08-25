@@ -13,7 +13,6 @@ function Results(el) {
         that.el.empty();
         that.el.append(renderedResults);
     };
-
     that.el.on('click', '.like', function () {
         $(document).trigger('like', $('h5', this.parentElement).text());
     });
