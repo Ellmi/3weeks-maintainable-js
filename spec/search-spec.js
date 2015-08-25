@@ -1,7 +1,6 @@
 describe('location search test', function () {
     'use strict';
-    var locationSearch, request;
-    var onSuccess;
+    var search, request, fixture;
     var TestResponses = {
         search: {
             success: {
@@ -18,30 +17,19 @@ describe('location search test', function () {
             }
         }
     };
-    beforeEach(function () {
+    it('send ajax request after click search button', function () {
         jasmine.Ajax.install();
-
-        onSuccess = jasmine.createSpy('onSuccess');
-
-        locationSearch = new LocationSearch();
-
-        locationSearch.search('mel', onSuccess);
-
+        spyOnEvent($(document), 'renderResults');
+        fixture = setFixtures('<input type="text" id="locationInput" ' +
+        'value="mel"/><div id="searchButton"></div>');
+        search = new Search($('#searchButton'));
+        search.el.click();
         request = jasmine.Ajax.requests.mostRecent();
+        request.respondWith(TestResponses.search.success);
         expect(request.url).toBe('http://location-backend-service.' +
         'herokuapp.com/locations?name=mel');
         expect(request.method).toBe('GET');
+        expect('renderResults').toHaveBeenTriggeredOn($(document));
     });
 
-    describe('on success', function () {
-        beforeEach(function () {
-            request.respondWith(TestResponses.search.success);
-        });
-
-        it('calls onSuccess with an array of Locations', function () {
-            expect(onSuccess).toHaveBeenCalled();
-            var response = request.response;
-            expect(response[0].name).toEqual('Melbourne');
-        });
-    });
 });
