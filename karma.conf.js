@@ -17,10 +17,12 @@ module.exports = function(config) {
     files: [
       'vendor/jquery/dist/jquery.js',
       'vendor/underscore/underscore.js',
+      'vendor/backbone/backbone.js',
       'vendor/jasmine-jquery/lib/jasmine-jquery.js',
       'vendor/jasmine-ajax/lib/mock-ajax.js',
       'spec/**/*-spec.js',
-      'src/js/*.js'
+      'src/js/*.js',
+      { pattern: 'spec/fixtures/**/*.html', included: false, served: true }
     ],
 
 
