@@ -4,6 +4,7 @@ var SearchResultsView = Backbone.View.extend({
         this.model.bind('change:results', _.bind(this.render, this));
         this.template = $('#search-results-template').html();
     },
+    el: '#search-results',
 
     render: function() {
         var compiled = _.template(this.template);

@@ -19,17 +19,22 @@ describe('location search test', function () {
     };
     it('send ajax request after click search button', function () {
         jasmine.Ajax.install();
-        spyOnEvent($(document), 'renderResults');
+        var model = new Backbone.Model({results: []});
         fixture = setFixtures('<input type="text" id="locationInput" ' +
         'value="mel"/><div id="searchButton"></div>');
-        search = new Search($('#searchButton'));
+
+        spyOnEvent(model, 'change:results');
+        search = new Search($('#searchButton'),model);
+
         search.el.click();
         request = jasmine.Ajax.requests.mostRecent();
         request.respondWith(TestResponses.search.success);
+
         expect(request.url).toBe('http://location-backend-service.' +
         'herokuapp.com/locations?name=mel');
         expect(request.method).toBe('GET');
-        expect('renderResults').toHaveBeenTriggeredOn($(document));
+        //expect(model.get('results').length).toBe(1);
+        //expect('change:results').toHaveBeenTriggeredOn(search.model);
     });
 
 });

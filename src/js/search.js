@@ -1,5 +1,7 @@
-function Search(el) {
+function Search(el,model) {
+    this.model = model;
     this.el = $(el);
+    var that = this;
     this.el.click(function(){
         var name = $('#locationInput').val(),
             filter = name ? '?name=' + name : '' ;
@@ -7,7 +9,8 @@ function Search(el) {
         $.ajax({
             url: LOCATION_SERVICE_API + filter,
             success: function(data){
-                $(document).trigger('renderResults', [data]);
+                that.model.set({"results": data});
+                that.model.trigger('change:results', data);
             },
             dataType: 'json'
         });
