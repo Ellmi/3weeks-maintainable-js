@@ -1,0 +1,13 @@
+<script type="text/template" id="liked-places-template">
+    <div id="likedPlaces"  class="large-4 medium-4 columns">
+        <h4>Places I liked</h4>
+        <nav>
+            <ul>
+                <% _.each(likedPlaces, function(place) { %>
+                <li class="like"><%= place %></li>
+                <% }); %>
+            </ul>
+        </nav>
+    </div>
+</script>
+<div id="liked-places"></div>

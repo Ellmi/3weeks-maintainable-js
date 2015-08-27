@@ -13,10 +13,10 @@ var SearchResultsView = Backbone.View.extend({
         e.preventDefault();
         var placeName = $('h5', $(e.currentTarget.parentElement)).text();
         var items = this.likedItemsModel.get('likedItems');
-        var alreadyInLikedPlaces = _.findWhere(items, placeName);
+        var alreadyInLikedPlaces = _.indexOf(items, placeName)!==-1;
         if(!alreadyInLikedPlaces){
-        items.push(placeName);
-        this.likedItemsModel.trigger('change:likedItems', items);
+            items.push(placeName);
+            this.likedItemsModel.trigger('change:likedPlaces', items);
         }
     },
     el: '#search-results',
