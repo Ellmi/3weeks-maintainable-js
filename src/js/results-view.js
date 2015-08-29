@@ -12,7 +12,7 @@ var SearchResultsView = Backbone.View.extend({
     toggleLike: function(e) {
         e.preventDefault();
         var placeName = $('h5', $(e.currentTarget.parentElement)).text();
-        var items = this.likedItemsModel.get('likedItems');
+        var items = this.likedItemsModel.get('likedPlaces');
         var alreadyInLikedPlaces = _.indexOf(items, placeName)!==-1;
         if(!alreadyInLikedPlaces){
             items.push(placeName);
