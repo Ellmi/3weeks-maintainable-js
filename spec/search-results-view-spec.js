@@ -1,3 +1,7 @@
+var Backbone = require('backbone');
+
+var SearchResultsView = require('../src/js/views/results-view');
+
 describe('SearchResultsView', function(){
     'use strict';
 

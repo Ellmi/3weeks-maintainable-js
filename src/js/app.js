@@ -1,3 +1,10 @@
+var $ = require('jquery');
+var SearchResults = require('./models/search-model');
+var LikedPlaces = require('./models/liked-places-model');
+var LikedPlacesView = require('./views/liked-places-view');
+var SearchResultsView = require('./views/results-view');
+var Search = require('./search');
+
 $(function(){
     'use strict';
 

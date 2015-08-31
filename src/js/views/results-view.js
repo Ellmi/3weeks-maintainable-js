@@ -1,4 +1,8 @@
-var SearchResultsView = Backbone.View.extend({
+var Backbone = require('backbone');
+var $ = require('jquery');
+var _ = require('lodash');
+
+module.exports = Backbone.View.extend({
     initialize: function(resultsModel,likedItemsModel) {
         this.model = resultsModel;
         this.likedItemsModel = likedItemsModel;

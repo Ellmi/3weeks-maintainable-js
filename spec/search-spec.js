@@ -1,3 +1,7 @@
+var Backbone = require('backbone');
+
+var Search = require('../src/js/search');
+
 describe('location search test', function () {
     'use strict';
     var search, request, fixture;

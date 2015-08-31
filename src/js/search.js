@@ -1,4 +1,6 @@
-function Search(el,model) {
+var $ = require('jquery');
+
+module.exports = function Search(el,model) {
     this.model = model;
     this.el = $(el);
     var that = this;
@@ -15,4 +17,4 @@ function Search(el,model) {
             dataType: 'json'
         });
     });
-}
+};

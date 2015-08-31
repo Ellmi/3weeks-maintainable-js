@@ -1,3 +1,7 @@
+var Backbone = require('backbone');
+
+var LikedPlacesView = require('../src/js/views/liked-places-view');
+
 describe('LikedPlacesView', function(){
     'use strict';
 
