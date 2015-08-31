@@ -12,14 +12,6 @@ module.exports = Backbone.View.extend({
         this.model.bind('change:results', _.bind(this.render, this));
     },
 
-    createSubView: function (model) {
-        return new SearchResultView(new Backbone.Model(model));
-    },
-
-    getDom: function (view) {
-        return view.render();
-    },
-
     events: {
         'click .like': 'toggleLike'
     },
@@ -28,11 +20,19 @@ module.exports = Backbone.View.extend({
         e.preventDefault();
         var placeName = $('h5', $(e.currentTarget.parentElement)).text();
         var items = this.likedItemsModel.get('likedPlaces');
-        var alreadyInLikedPlaces = _.indexOf(items, placeName) !== -1;
+        var alreadyInLikedPlaces = _.findWhere(items, {"place":placeName});
         if (!alreadyInLikedPlaces) {
-            items.push(placeName);
+            items.push({"place":placeName});
             this.likedItemsModel.trigger('change:likedPlaces', items);
         }
+    },
+
+    createSubView: function (model) {
+        return new SearchResultView(new Backbone.Model(model));
+    },
+
+    getDom: function (view) {
+        return view.render();
     },
 
     el: '#results',
