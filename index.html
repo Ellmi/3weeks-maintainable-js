@@ -8,32 +8,6 @@
         <link rel="stylesheet" href="src/css/style.css">
 
         <title>Locations</title>
-        <script type="text/template" id="search-results-template">
-            <div id="searchResults" class="large-8 medium-8 columns">
-                <h4>Search results</h4>
-                <div id="results">
-                    <% _.each(results, function(result) { %>
-                    <div class="panel large-12 columns">
-                        <h5><%= result.name %></h5>
-                        <h6><%= result.description %></h6>
-                        <a href="#" class="like button tiny right">Like</a>
-                    </div>
-                    <% }); %>
-                </div>
-            </div>
-        </script>
-        <script type="text/template" id="liked-places-template">
-            <div id="likedPlaces"  class="large-4 medium-4 columns">
-                <h4>Places I liked</h4>
-                <nav>
-                    <ul>
-                        <% _.each(likedPlaces, function(place) { %>
-                        <li class="like"><%= place %></li>
-                        <% }); %>
-                    </ul>
-                </nav>
-            </div>
-        </script>
     </head>
     <body>
       <div class="contain-to-grid">
@@ -59,8 +33,22 @@
             </div>
 
             <div class="row">
-              <div id="search-results"></div>
-              <div id="liked-places"></div>
+              <div id="search-results">
+                <div id="searchResults" class="large-8 medium-8 columns">
+                    <h4>Search results</h4>
+                    <div id="results">
+                    </div>
+                </div>
+              </div>
+              <div id="liked-places">
+                <div id="likedPlaces"  class="large-4 medium-4 columns">
+                    <h4>Places I liked</h4>
+                    <nav>
+                        <ul>
+                        </ul>
+                    </nav>
+                </div>
+              </div>
             </div>
          </div>
     </body>
