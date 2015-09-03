@@ -2,7 +2,7 @@ var Backbone = require('backbone');
 var _ = require('lodash');
 var $ = require('jquery');
 
-var template = require('../templates/search-results.hbs');
+var template = require('../templates/search-result.hbs');
 
 module.exports = Backbone.View.extend({
     initialize: function(model) {
