@@ -23,4 +23,4 @@ gulp.task('browserify', function() {
         .pipe(gulp.dest('build/js'));
 });
 
-gulp.task('default', ['js', 'test']);
+gulp.task('default', ['browserify','js', 'test']);
