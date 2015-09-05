@@ -19,11 +19,11 @@ module.exports = Backbone.View.extend({
     toggleLike: function (e) {
         e.preventDefault();
         var placeName = $('h5', $(e.currentTarget.parentElement)).text();
-        var items = this.likedItemsModel.get('likedPlaces');
-        var alreadyInLikedPlaces = _.findWhere(items, {"place":placeName});
+        var likedPlaces = this.likedItemsModel.get('likedPlaces');
+        var alreadyInLikedPlaces = _.findWhere(likedPlaces, {"place": placeName});
         if (!alreadyInLikedPlaces) {
-            items.push({"place":placeName});
-            this.likedItemsModel.trigger('change:likedPlaces', items);
+            likedPlaces.push({"place": placeName});
+            this.likedItemsModel.trigger('change:likedPlaces', likedPlaces);
         }
     },
 

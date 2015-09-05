@@ -12,7 +12,6 @@ module.exports = function Search(el,model) {
             url: LOCATION_SERVICE_API + filter,
             success: function(data){
                 that.model.set({"results": data});
-                that.model.trigger('change:results', data);
             },
             dataType: 'json'
         });

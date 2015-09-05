@@ -14,6 +14,5 @@ $(function(){
     new Search($('#searchButton'),searchResultsModel);
     var likedPlaces = new LikedPlacesView(likedItemsModel);
     var results = new SearchResultsView(searchResultsModel,likedItemsModel);
-    results.render();
-    likedPlaces.render();
+
 });
