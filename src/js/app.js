@@ -15,4 +15,5 @@ $(function(){
     var likedPlaces = new LikedPlacesView(likedItemsModel);
     var results = new SearchResultsView(searchResultsModel,likedItemsModel);
 
+    $('#results').append(results.render());
 });

@@ -35,7 +35,6 @@ module.exports = Backbone.View.extend({
         return view.render();
     },
 
-    el: '#results',
     render: function () {
         var results = this.model.get('results');
         this.views = _.map(results, _.bind(this.createSubView, this));
