@@ -19,8 +19,6 @@ module.exports = Backbone.View.extend({
         return view.render();
     },
 
-    el: '#liked-places nav ul',
-
     render: function() {
         var likedPlaces = this.model.get('likedPlaces');
         this.views = _.map(likedPlaces, _.bind(this.createSubView, this));
