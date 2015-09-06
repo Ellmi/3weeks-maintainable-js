@@ -1,9 +1,15 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
 var SearchResultView = require('../src/js/views/result-view');
+var CustomMacthers = require('./custom-matchers');
 
 describe('SearchResultView', function() {
     'use strict';
+
+    beforeEach(function() {
+        jasmine.addMatchers(CustomMacthers);
+    });
+
     it('#initialize', function() {
         var searchResultView = new SearchResultView(new Backbone.Model());
         expect(searchResultView).toBeDefined();
