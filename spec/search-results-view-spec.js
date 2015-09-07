@@ -1,4 +1,5 @@
 var Backbone = require('backbone');
+var $ = require('jquery');
 var SearchResultsView = require('../src/js/views/results-view');
 var CustomMacthers = require('./custom-matchers');
 
@@ -37,6 +38,25 @@ describe('SearchResultsView', function(){
             var first = html.find('.panel').first();
             expect(first.find('h5'))
                 .toContainText('Melbourne');
+        });
+
+        it('toggle like', function() {
+            var model = new Backbone.Model({results: [
+                {
+                    description: 'This is description',
+                    name: 'Melbourne'
+                }
+            ]});
+            var likedModel = new Backbone.Model({'likedPlaces': []});
+            var searchResultsView = new SearchResultsView(model,likedModel);
+            var html = searchResultsView.render();
+            expect($.trim(html.find('a').text())).toEqual('Like');
+
+            html.find('a').trigger('click');
+            expect($.trim(html.find('a').text())).toEqual('Liked');
+
+            html.find('a').trigger('click');
+            expect($.trim(html.find('a').text())).toEqual('Like');
         });
     });
 });

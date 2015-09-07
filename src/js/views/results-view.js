@@ -23,8 +23,13 @@ module.exports = Backbone.View.extend({
         var alreadyInLikedPlaces = _.findWhere(likedPlaces, {"place": placeName});
         if (!alreadyInLikedPlaces) {
             likedPlaces.push({"place": placeName});
-            this.likedItemsModel.trigger('change:likedPlaces', likedPlaces);
+            $('a', $(e.currentTarget.parentElement)).text('Liked');
+        }else{
+            var index = likedPlaces.indexOf({"place": placeName});
+            likedPlaces.splice(index, 1);
+            $('a', $(e.currentTarget.parentElement)).text('Like');
         }
+        this.likedItemsModel.trigger('change:likedPlaces', likedPlaces);
     },
 
     createSubView: function (model) {
