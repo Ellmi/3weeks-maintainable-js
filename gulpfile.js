@@ -5,9 +5,9 @@ var gulp = require('gulp'),
     KarmaServer = require('karma').Server;
 
 gulp.task('test', function(done){
-  new KarmaServer({
-    configFile: __dirname + '/karma.conf.js'
-  }, done).start();
+    new KarmaServer({
+        configFile: __dirname + '/karma.conf.js'
+    }, done).start();
 });
 
 gulp.task('js', function() {
@@ -19,8 +19,16 @@ gulp.task('js', function() {
 gulp.task('browserify', function() {
     return browserify('src/js/app.js')
         .bundle()
+        .on('error', function(err){
+            console.log(err.message);
+            this.emit('end');
+        })
         .pipe(source('bundle.js'))
         .pipe(gulp.dest('build/js'));
 });
 
-gulp.task('default', ['browserify','js', 'test']);
+gulp.task('default', ['js', 'test']);
+
+gulp.task('watch', function() {
+    gulp.watch('src/js/**/*', ['browserify']);
+});
