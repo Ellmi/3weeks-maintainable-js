@@ -1,20 +1,10 @@
 var $ = require('jquery');
-var SearchResults = require('./models/search-model');
-var LikedPlaces = require('./models/liked-places-model');
-var LikedPlacesView = require('./views/liked-places-view');
-var SearchResultsView = require('./views/results-view');
-var Search = require('./search');
+var React = require('react');
+var _ = require('lodash');
 
-$(function(){
-    'use strict';
+var LocationSearchApp = require('./components/location-search-app.jsx');
 
-    var searchResultsModel = new SearchResults({'results': []});
-    var likedItemsModel = new LikedPlaces({'likedPlaces': []});
+$(function() {
 
-    new Search($('#searchButton'),searchResultsModel);
-    var likedPlaces = new LikedPlacesView(likedItemsModel);
-    var results = new SearchResultsView(searchResultsModel,likedItemsModel);
-
-    $('#results').append(results.render());
-    $('#liked-places').find('nav ul').append(likedPlaces.render());
+    React.render(<LocationSearchApp />, document.getElementById('container'));
 });
