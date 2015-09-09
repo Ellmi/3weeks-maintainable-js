@@ -5,6 +5,7 @@ var $ = require('jquery');
 
 var SearchForm = require('./search-form.jsx');
 var SearchResults = require('./results-list.jsx');
+var LikedLocations = require('./like-list.jsx');
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -18,8 +19,12 @@ module.exports = React.createClass({
         var LOCATION_SERVICE_API = 'http://location-backend-service.herokuapp.com/locations';
         $.ajax({
             url: LOCATION_SERVICE_API + filter,
-            success: function(data){
-                self.setState({results: data});
+            success: function(datas){
+                var renderData = _.map(datas, function(data){
+                    data.status=false;
+                    return data;
+                });
+                self.setState({results: renderData});
             },
             dataType: 'json'
         });
@@ -38,16 +43,10 @@ module.exports = React.createClass({
         </div>
         <div className="row">
             <div id="search-results">
-                <SearchResults results={this.state.results}/>
+                <SearchResults parent={this} results={this.state.results}/>
             </div>
             <div id="liked-places">
-                <div id="likedPlaces"  className="large-4 medium-4 columns">
-                    <h4>Places I liked</h4>
-                    <nav>
-                        <ul>
-                        </ul>
-                    </nav>
-                </div>
+                <LikedLocations results={this.state.results}/>
             </div>
         </div>
         </div>
