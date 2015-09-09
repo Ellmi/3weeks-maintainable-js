@@ -1,6 +1,6 @@
 var React = require('react');
 var _ = require('lodash');
-
+var $ = require('jquery');
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -8,7 +8,7 @@ module.exports = React.createClass({
     },
 
     handleChange: function(){
-        this.props.onSearch(this.state.inputValue);
+        this.search(this.state.inputValue);
         this.setState({inputValue: ''})
     },
 
@@ -16,6 +16,23 @@ module.exports = React.createClass({
         this.setState({inputValue: event.target.value});
     },
 
+    search: function (text){
+        var name = text,
+            self = this,
+            filter = name ? '?name=' + name : '' ;
+        var LOCATION_SERVICE_API = 'http://location-backend-service.herokuapp.com/locations';
+        $.ajax({
+            url: LOCATION_SERVICE_API + filter,
+            success: function(datas){
+                var renderData = _.map(datas, function(data){
+                    data.status=false;
+                    return data;
+                });
+                self.props.parent.setState({results: renderData});
+            },
+            dataType: 'json'
+        });
+    },
     render: function(){
         return (
             <form>
