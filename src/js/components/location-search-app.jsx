@@ -8,7 +8,7 @@ var SearchResults = require('./results-list.jsx');
 
 module.exports = React.createClass({
     getInitialState: function() {
-        return {results: [],likedPlaces:[]};
+        return {results: []};
     },
 
     handleSearch: function (text){
@@ -19,7 +19,7 @@ module.exports = React.createClass({
         $.ajax({
             url: LOCATION_SERVICE_API + filter,
             success: function(data){
-                self.state.results = data;
+                self.setState({results: data});
             },
             dataType: 'json'
         });
@@ -38,12 +38,7 @@ module.exports = React.createClass({
         </div>
         <div className="row">
             <div id="search-results">
-                <div id="searchResults" className="large-8 medium-8 columns">
-                    <h4>Search results</h4>
-                    <div id="results">
-                        <SearchResults />
-                    </div>
-                </div>
+                <SearchResults results={this.state.results}/>
             </div>
             <div id="liked-places">
                 <div id="likedPlaces"  className="large-4 medium-4 columns">

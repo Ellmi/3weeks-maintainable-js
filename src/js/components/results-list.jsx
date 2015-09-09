@@ -1,16 +1,20 @@
 var React = require('react');
 var _ = require('lodash');
-
+var ResultItem = require('./result-item.jsx');
 
 module.exports = React.createClass({
-
-    render: function(){
+    render: function () {
+        var searchResults = _.map(this.props.results, function(result){
+            return <ResultItem result={result} />;
+        });
         return (
-            <div className="panel large-12 columns">
-                <h5>PLACE DESCRIPTION</h5>
-                <h6>LOCATION</h6>
-                <a href="#" className="like button tiny right">Like</a>
+            <div id="searchResults" className="large-8 medium-8 columns">
+                <h4>Search results</h4>
+
+                <div id="results">
+                    {searchResults}
+                </div>
             </div>
-        )
+        );
     }
 });
