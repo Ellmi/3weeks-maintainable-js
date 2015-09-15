@@ -16,7 +16,7 @@ describe('ResultsList', function(){
         ];
 
         var like = TestUtils.renderIntoDocument(
-            <LikedLocations results={results}/>
+            <LikeList results={results}/>
         );
 
         expect(TestUtils.isCompositeComponent(like)).toBeTruthy();
@@ -24,7 +24,7 @@ describe('ResultsList', function(){
         var locations = TestUtils.scryRenderedDOMComponentsWithClass(like, "fake-liked-location");
         var h4 = TestUtils.findRenderedDOMComponentWithTag(like, 'h4');
 
-        expect(locations.length).toEqual(2);
+        expect(locations.length).toEqual(1);
         expect(h4.getDOMNode().textContent).toEqual('Places I liked');
     });
 });
