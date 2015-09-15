@@ -55,3 +55,4 @@ If you have already got `node` & `npm` installed locally, goto step 2.
 	`name` is case insensitive, and could be partial.
 
 		http://location-backend-service.herokuapp.com/locations?name=mel
+3.ulimit -n 2560
