@@ -2,6 +2,10 @@ var gulp = require('gulp'),
     jshint = require('gulp-jshint'),
     browserify = require('browserify'),
     source = require('vinyl-source-stream'),
+    del = require('del'),
+    minifyCss = require('gulp-minify-css'),
+    concat = require('gulp-concat'),
+    rev = require('gulp-rev');
     KarmaServer = require('karma').Server;
 
 gulp.task('test', function(done){
@@ -25,6 +29,20 @@ gulp.task('browserify', function() {
         })
         .pipe(source('bundle.js'))
         .pipe(gulp.dest('build/js'));
+});
+
+gulp.task('clean', function() {
+   return del('publish');
+});
+
+gulp.task('publishCSS',['clean'], function() {
+    return gulp.src('src/css/*.css')
+        .pipe(minifyCss())
+        .pipe(concat('search.css'))
+        .pipe(rev())
+        .pipe(gulp.dest('publish/css'))
+        .pipe(rev.manifest('publish/rev-manifest.json'), {base:'publish', merge:'true'})
+        .pipe(gulp.dest(''));
 });
 
 gulp.task('default', ['js', 'test']);
