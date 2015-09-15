@@ -32,16 +32,24 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('clean', function() {
-   return del('publish');
+   return del(['publish', 'build']);
 });
 
-gulp.task('publishCSS',['clean'], function() {
+gulp.task('publishCSS', function() {
     return gulp.src('src/css/*.css')
         .pipe(minifyCss())
         .pipe(concat('search.css'))
         .pipe(rev())
         .pipe(gulp.dest('publish/css'))
         .pipe(rev.manifest('publish/rev-manifest.json'), {base:'publish', merge:'true'})
+        .pipe(gulp.dest(''));
+});
+
+gulp.task('publishJS',['browserify'], function() {
+   return gulp.src('build/js/*.js')
+        .pipe(rev())
+        .pipe(gulp.dest('publish/js'))
+        .pipe(rev.manifest('publish/rev-manifest.json'), {base:'publish',merge:'true'})
         .pipe(gulp.dest(''));
 });
 
