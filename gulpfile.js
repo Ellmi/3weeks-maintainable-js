@@ -44,8 +44,8 @@ gulp.task('publishCSS', function() {
         .pipe(concat('search.css'))
         .pipe(rev())
         .pipe(gulp.dest('publish/css'))
-        .pipe(rev.manifest('publish/rev-manifest.json'), {base: 'publish', merge: true})
-        .pipe(gulp.dest(''));
+        .pipe(rev.manifest('publish/rev-manifest.json', {base: 'publish', merge: true}))
+        .pipe(gulp.dest('publish'));
 });
 
 gulp.task('publishJS',['browserify'], function() {
@@ -53,8 +53,8 @@ gulp.task('publishJS',['browserify'], function() {
         .pipe(rev())
         .pipe(uglify())
         .pipe(gulp.dest('publish/js'))
-        .pipe(rev.manifest('publish/rev-manifest.json'), {base: 'publish', merge: true})
-        .pipe(gulp.dest(''));
+        .pipe(rev.manifest('publish/rev-manifest.json', {base: 'publish', merge: true}))
+        .pipe(gulp.dest('publish'));
 });
 
 gulp.task('build', ['clean', 'publishCSS', 'publishJS'], function() {
