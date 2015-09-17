@@ -55,4 +55,4 @@ If you have already got `node` & `npm` installed locally, goto step 2.
 	`name` is case insensitive, and could be partial.
 
 		http://location-backend-service.herokuapp.com/locations?name=mel
-3.ulimit -n 2560
+3. When use gulp but happend error such as "EMFILE, open '***'",use 'ulimit -n 2560'
