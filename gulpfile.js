@@ -8,7 +8,9 @@ var gulp = require('gulp'),
     rev = require('gulp-rev'),
     KarmaServer = require('karma').Server,
     fs = require('fs'),
-    gulpHtmlReplace= require('gulp-html-replace'),
+    gulpHtmlReplace = require('gulp-html-replace'),
+    environment = require('./package.json'),
+    zip = require('gulp-zip'),
     uglify = require('gulp-uglify');
 
 gulp.task('test', function(done){
@@ -64,6 +66,13 @@ gulp.task('build', ['clean', 'publishCSS', 'publishJS'], function() {
     return gulp.src(['index.html', 'server.sh'])
         .pipe(gulpHtmlReplace({js: jsFile, css: cssFile}))
         .pipe(gulp.dest('publish'))
+});
+
+gulp.task('publish', ['js', 'test', 'clean', 'browserify', 'publishCSS', 'publishJS', 'build'],function() {
+    var package = 'demo-' + environment.version + '.zip';
+    return gulp.src('publish/**/*')
+        .pipe(zip(package))
+        .pipe(gulp.dest('.'))
 });
 
 gulp.task('default', ['js', 'test']);
