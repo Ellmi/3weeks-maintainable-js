@@ -7,6 +7,8 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     rev = require('gulp-rev'),
     KarmaServer = require('karma').Server,
+    fs = require('fs'),
+    gulpHtmlReplace= require('gulp-html-replace'),
     uglify = require('gulp-uglify');
 
 gulp.task('test', function(done){
@@ -54,6 +56,15 @@ gulp.task('publishJS',['browserify'], function() {
         .pipe(rev.manifest('publish/rev-manifest.json'), {base:'publish',merge:'true'})
         .pipe(gulp.dest(''));
 });
+
+gulp.task('build', ['clean', 'browserify', 'publishCSS', 'publishJS'], function() {
+    var manifest = fs.readFileSync('publish/rev-manifest.json').toString(),
+        cssFile = 'css/' + JSON.parse(manifest)['search.css'],
+        jsFile = 'js/' + JSON.parse(manifest)['build.js'];
+    return gulp.src(['index.html', 'server.sh'])
+        .pipe(gulpHtmlReplace({js:jsFile, css:cssFile}))
+        .pipe(gulp.dest('publish'))
+})
 
 gulp.task('default', ['js', 'test']);
 
