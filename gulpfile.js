@@ -44,27 +44,27 @@ gulp.task('publishCSS', function() {
         .pipe(concat('search.css'))
         .pipe(rev())
         .pipe(gulp.dest('publish/css'))
-        .pipe(rev.manifest('publish/rev-manifest.json'), {base:'publish', merge:'true'})
+        .pipe(rev.manifest('publish/rev-manifest.json'), {base: 'publish', merge: true})
         .pipe(gulp.dest(''));
 });
 
 gulp.task('publishJS',['browserify'], function() {
-   return gulp.src('build/js/*.js')
+   return gulp.src('build/js/bundle.js')
         .pipe(rev())
         .pipe(uglify())
         .pipe(gulp.dest('publish/js'))
-        .pipe(rev.manifest('publish/rev-manifest.json'), {base:'publish',merge:'true'})
+        .pipe(rev.manifest('publish/rev-manifest.json'), {base: 'publish', merge: true})
         .pipe(gulp.dest(''));
 });
 
-gulp.task('build', ['clean', 'browserify', 'publishCSS', 'publishJS'], function() {
+gulp.task('build', ['clean', 'publishCSS', 'publishJS'], function() {
     var manifest = fs.readFileSync('publish/rev-manifest.json').toString(),
         cssFile = 'css/' + JSON.parse(manifest)['search.css'],
-        jsFile = 'js/' + JSON.parse(manifest)['build.js'];
+        jsFile = 'js/' + JSON.parse(manifest)['bundle.js'];
     return gulp.src(['index.html', 'server.sh'])
-        .pipe(gulpHtmlReplace({js:jsFile, css:cssFile}))
+        .pipe(gulpHtmlReplace({js: jsFile, css: cssFile}))
         .pipe(gulp.dest('publish'))
-})
+});
 
 gulp.task('default', ['js', 'test']);
 
