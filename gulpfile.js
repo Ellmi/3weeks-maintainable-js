@@ -5,8 +5,9 @@ var gulp = require('gulp'),
     del = require('del'),
     minifyCss = require('gulp-minify-css'),
     concat = require('gulp-concat'),
-    rev = require('gulp-rev');
-    KarmaServer = require('karma').Server;
+    rev = require('gulp-rev'),
+    KarmaServer = require('karma').Server,
+    uglify = require('gulp-uglify');
 
 gulp.task('test', function(done){
     new KarmaServer({
@@ -48,6 +49,7 @@ gulp.task('publishCSS', function() {
 gulp.task('publishJS',['browserify'], function() {
    return gulp.src('build/js/*.js')
         .pipe(rev())
+        .pipe(uglify())
         .pipe(gulp.dest('publish/js'))
         .pipe(rev.manifest('publish/rev-manifest.json'), {base:'publish',merge:'true'})
         .pipe(gulp.dest(''));
